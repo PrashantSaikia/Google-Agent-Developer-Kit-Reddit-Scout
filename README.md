@@ -1,92 +1,97 @@
-# ADK Made Simple - Agent Examples
+# Reddit Scout Agent
 
-This project demonstrates simple agents built using the Google Agent Development Kit (ADK).
-Currently, it contains one agent: "Game Dev News Scout".
+A Reddit scout agent built with Google's Agent Development Kit (ADK) that can fetch and analyze posts from any subreddit. The agent can provide both high-level summaries of top posts and detailed analysis of specific posts including their comments.
 
-## Agents
+## Project Structure
+```
+agents/
+└── reddit_scout/
+    ├── __init__.py     # Package initialization
+    └── agent.py        # Main agent implementation with Reddit interaction logic
+```
 
-- **Game Dev News Scout**: Simulates fetching recent discussion titles from game development subreddits.
+## Features
 
-## General Setup
+- **Subreddit Post Fetching**: Retrieves top posts from any specified subreddit
+- **Post Summarization**: Provides brief summaries of each post
+- **Detailed Post Analysis**: 
+  - Full post content and metadata
+  - Author information
+  - Post score
+  - URL (if applicable)
+  - Analysis of comments (positive/negative)
+  - Comment statistics
 
-1.  **Clone the repository:**
+## How It Works
 
-    ```bash
-    git clone <your-repo-url>
-    cd adk-made-simple
-    ```
+The agent uses two main functions:
 
-2.  **Create and activate a virtual environment (Recommended):**
+1. `get_reddit_news(subreddit, limit=10)`:
+   - Fetches top posts from a specified subreddit
+   - Returns post titles, content, and IDs
+   - Used for initial post listing
 
-    ```bash
-    python -m venv .venv
-    # On Windows
-    .\.venv\Scripts\activate
-    # On macOS/Linux
-    source .venv/bin/activate
-    ```
+2. `analyze_post_and_comments(subreddit, post_id, comment_limit=20)`:
+   - Provides detailed analysis of a specific post
+   - Analyzes post content and metadata
+   - Categorizes comments as positive/negative based on score
+   - Returns comprehensive post and comment analysis
 
-3.  **Install general dependencies:**
+## Setup
 
-    ```bash
-    pip install -r requirements.txt
-    ```
+1. Clone the repository
+2. Create a virtual environment:
+   ```bash
+   uv venv my_env
+   source my_env/bin/activate  # On Unix/macOS
+   # or
+   .\my_env\Scripts\activate  # On Windows
+   ```
 
-4.  **Agent-Specific Setup:** Navigate to the specific agent's directory within `agents/` and follow the instructions in its `README.md` (or follow the steps below for the default agent).
+3. Install dependencies:
+   ```bash
+   uv pip install -r requirements.txt
+   ```
 
-## Game Dev News Scout - Setup & Running
+4. Set up Reddit API credentials:
+   - Create a Reddit application at https://www.reddit.com/prefs/apps
+   - Copy `.env.example` to `.env`
+   - Fill in your Reddit API credentials in `.env`
 
-1.  **Navigate to Agent Directory:**
+## Usage
 
-    ```bash
-    cd agents/news_scout
-    ```
+1. Start the ADK development server:
+   ```bash
+   adk dev
+   ```
 
-2.  **Set up API Key:**
+2. Interact with the agent:
+   - Ask for latest posts: "What are the top posts in r/sideproject?"
+   - Get detailed analysis: "Tell me more about [post title]"
 
-    - Copy the example environment file:
-      ```bash
-      cp .env.example .env
-      ```
-    - Edit the `.env` file and add your Google AI API Key. You can obtain one from [Google AI Studio](https://aistudio.google.com/app/apikey).
-      ```dotenv
-      GOOGLE_API_KEY=YOUR_API_KEY_HERE
-      ```
-    - _Note:_ You might need to load this into your environment depending on your OS and shell (`source .env` or similar) if `python-dotenv` doesn't automatically pick it up when running `adk`.
-
-3.  **Run the Agent:**
-
-    - Make sure your virtual environment (from the root directory) is activated.
-    - From the `agents/news_scout` directory, run the agent using the ADK CLI, specifying the core code package:
-      ```bash
-      adk run news_scout
-      ```
-    - Alternatively, from the project root (`adk-made-simple`), you might be able to run:
-      ```bash
-      adk run agents.news_scout
-      ```
-      _(Check ADK documentation for preferred discovery method)_
-
-4.  **Interact:** The agent will start, and you can interact with it in the terminal. Try prompts like:
-    - `What's the latest news?`
-    - `Give me news from unrealengine`
-
-## Project Structure Overview
+## Example Interactions
 
 ```
-adk-made-simple/
-├── agents/
-│   └── news_scout/          # Game Dev News Scout Agent
-│       ├── news_scout/      # Core Python package
-│       │   ├── __init__.py
-│       │   └── agent.py
-│       ├── .env.example     # Agent-specific env example
-│       ├── .gitignore       # Optional: Agent-specific ignores
-│       └── README.md        # Optional: Agent-specific README
-├── .venv/                   # Virtual environment directory
-├── .env                     # Optional: Root env vars (or use agent-specific)
-├── .gitignore               # Root gitignore file
-├── requirements.txt         # Project dependencies
-├── README.md                # This file (Overall Project README)
-└── PLAN.md                  # Development plan notes
+User: "What are the top posts in r/python?"
+Agent: [Lists top 10 posts with brief summaries]
+
+User: "Tell me more about [specific post title]"
+Agent: [Provides detailed analysis of the post and its comments]
 ```
+
+## Environment Variables
+
+Required environment variables are listed in `.env.example`. Make sure to set these up before running the agent.
+
+## Error Handling
+
+The agent handles various error cases:
+- Missing API credentials
+- Invalid subreddit names
+- Private or banned subreddits
+- API rate limiting
+- Network errors
+
+## Contributing
+
+Feel free to submit issues and enhancement requests!

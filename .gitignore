@@ -102,4 +102,22 @@ venv.bak/
 .vscode/
 
 # ADK specific
-*.adk_cache/ 
+*.adk_cache/
+
+# Environment variables
+.env
+.env.*
+!.env.example
+
+# Virtual environment
+my_env/
+venv/
+.venv/
+env/
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+.DS_Store 
