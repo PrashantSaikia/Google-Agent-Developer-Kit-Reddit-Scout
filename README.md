@@ -60,12 +60,22 @@ The agent uses two main functions:
 
 ## Usage
 
-1. Start the ADK development server:
+1. Navigate to the agents directory:
    ```bash
-   adk dev
+   cd agents
    ```
 
-2. Interact with the agent:
+2. Run the agent:
+   - For Command Line Interface:
+     ```bash
+     adk run reddit_scout
+     ```
+   - For Web UI:
+     ```bash
+     adk web
+     ```
+
+3. Interact with the agent:
    - Ask for latest posts: "What are the top posts in r/sideproject?"
    - Get detailed analysis: "Tell me more about [post title]"
 
