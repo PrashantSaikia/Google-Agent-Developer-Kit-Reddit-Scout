@@ -105,3 +105,14 @@ The agent handles various error cases:
 ## Contributing
 
 Feel free to submit issues and enhancement requests!
+
+## Demo
+
+Here's a demonstration of the Reddit Scout Agent in action:
+
+![Reddit Scout Agent Demo](Demo.png)
+
+The demo shows:
+- Initial request for top posts from a subreddit
+- Detailed analysis of a specific post including its content and comments
+- The agent's ability to maintain context between requests
